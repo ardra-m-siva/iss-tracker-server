@@ -1,0 +1,31 @@
+MachineTest – Live Space StationTracker
+Time: 1 hour · Stack: React, Node.js, Express, MongoDB
+API: http://api.open-notify.org/iss-now.json . It returns the current position of the
+International Space Station:
+{
+    "message": "success", "timestamp": 1791469289, "iss_position": {
+        "latitude":
+        "-8.0250", "longitude": "51.2081"
+    }
+}
+Backend
+1. Call the API every 10 seconds and save the position in MongoDB.
+2. If the API fails, the app must not crash.
+3. Keep only the last 1 hour of data.
+4. GET / api / iss / current – latest position.
+5. GET / api / iss / path – all positions from the last hour.
+6. GET / api / iss / distance ? lat = 10.0 & lng=76.3 – distance in km from the ISS to that
+location.
+7. GET / api / iss / closest ? lat = 10.0 & lng=76.3 – from the saved data, when was the ISS
+closest to that location in the last hour ? 
+    Frontend(React)
+1. Show the current position and speed, refreshing every 10 seconds.
+2. Show the ISS on a map using Leaflet (react - leaflet), with a marker for the current
+position and a line for the path in the last hour.
+3. Enter a latitude and longitude, and show the distance now and the closest point in the
+last hour.  
+    Points
+1. Coming closer or moving away ? For a given location, tell if the ISS is coming closer or
+moving away right now, using the saved data.
+2. Check the speed.The API does not give the speed.Calculate it yourself in km / h from
+the last two saved positions.
